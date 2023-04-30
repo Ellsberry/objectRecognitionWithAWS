@@ -11,7 +11,8 @@ import json
 from pprint import pprint
 
 # Get the access codes to run the AWS  boto3 and rekognition programs
-file_df = pd.read_csv('recognition_v1_accessKeys.csv')
+# file_df = pd.read_csv('recognition_v1_credentials.csv')
+file_df = pd.read_csv('rekognition_v1_accessKeys.csv')
 access_key_id = file_df['Access key ID'].loc[file_df.index[0]]
 secret_access_key = file_df['Secret access key'].loc[file_df.index[0]]
 # print(f"access key = {access_key_id}   and secret access key =  {secret_access_key}")
@@ -20,6 +21,7 @@ client = boto3.client('rekognition', region_name='us-east-1', aws_access_key_id=
                       aws_secret_access_key=secret_access_key)
 
 photo = [
+    "animals_grayscale.jpg",
     "totally_not_an_elephant.jpg",
     "group_of_animals.jpg",
     "five_people.jpg",
