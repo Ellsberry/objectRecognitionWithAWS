@@ -11,12 +11,14 @@ import json
 from pprint import pprint
 
 # Get the access codes to run the AWS  boto3 and rekognition programs
-# file_df = pd.read_csv('recognition_v1_credentials.csv')
-file_df = pd.read_csv('recognition_v1_accessKeys.csv')
+# file_df = pd.read_csv('recognition_v1_credentials.csv')   # this is Anthony's credentials
+file_df = pd.read_csv('rekognition_v1_accessKeys.csv')      # this is Steve's credentials
 access_key_id = file_df['Access key ID'].loc[file_df.index[0]]
 secret_access_key = file_df['Secret access key'].loc[file_df.index[0]]
 # print(f"access key = {access_key_id}   and secret access key =  {secret_access_key}")
 
+# this client using boto3 is used to communicate with AWS's rekognition programs
+# the client is an API -- Application Programming Interface
 client = boto3.client('rekognition', region_name='us-east-1', aws_access_key_id=access_key_id,
                       aws_secret_access_key=secret_access_key)
 
