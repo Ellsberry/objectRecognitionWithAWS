@@ -105,47 +105,54 @@ for i in range(len(photo)):
 
     label_choice = input("Do you want to see a certain label?")
     if label_choice == "y":
-        choice_loop = True
-        while choice_loop:
-            different_label = input("Which label do you want to see?")
+        multiple_labels = True
+        while multiple_labels:
+            choice_loop = True
+            while choice_loop:
+                different_label = input("Which label do you want to see?").title()
+                print(different_label)
+                for i in range(len(boxlist)):
+                    if different_label in boxlist[i][0]:
+                        choice_loop = False
+                        break
             print(different_label)
-            for i in range(len(boxlist)):
-                if different_label in boxlist[i][0]:
-                    choice_loop = False
-                    break
-        print(different_label)
-        image = static_image
-        draw = ImageDraw.Draw(image)
-        # Get the box dimensions from the boxlist for the label chosen
-        number_of_items_in_boxlist = len(boxlist)
-        print(number_of_items_in_boxlist)
-        for item in range(number_of_items_in_boxlist):
-            if boxlist[item][0] == different_label:
+            image = static_image
+            draw = ImageDraw.Draw(image)
+            # Get the box dimensions from the boxlist for the label chosen
+            number_of_items_in_boxlist = len(boxlist)
+            print(number_of_items_in_boxlist)
+            for item in range(number_of_items_in_boxlist):
+                if boxlist[item][0] == different_label:
 
-                # pprint(boxlist)
-                left = image.width * boxlist[item][1]['Left']
-                top = image.height * boxlist[item][1]['Top']
-                width = image.width * boxlist[item][1]['Width']
-                height = image.height * boxlist[item][1]['Height']
-                points = (
-                            (left, top),
-                            (left + width, top),
-                            (left + width, top + height),
-                            (left, top + height),
-                            (left, top)
-                        )
-                draw.line(points, width=5, fill='#69f5d9')
-
-                points = (
-                    (left, top - 50),
-                    (left + width, top - 50),
-                    (left + width, top),
-                    (left, top),
-                    (left, top - 50)
-                )
-                if box not in boxlist:
+                    # pprint(boxlist)
+                    left = image.width * boxlist[item][1]['Left']
+                    top = image.height * boxlist[item][1]['Top']
+                    width = image.width * boxlist[item][1]['Width']
+                    height = image.height * boxlist[item][1]['Height']
+                    points = (
+                                (left, top),
+                                (left + width, top),
+                                (left + width, top + height),
+                                (left, top + height),
+                                (left, top)
+                            )
                     draw.line(points, width=5, fill='#69f5d9')
-                    draw.text((left + 10, top - 30), different_label, fill="#000000")
-                    box_name = different_label
-                    # print(boxlist)
-    image.show()
+
+                    points = (
+                        (left, top - 50),
+                        (left + width, top - 50),
+                        (left + width, top),
+                        (left, top),
+                        (left, top - 50)
+                    )
+                    if box not in boxlist:
+                        draw.line(points, width=5, fill='#69f5d9')
+                        draw.text((left + 10, top - 30), different_label, fill="#000000")
+                        box_name = different_label
+                        # print(boxlist)
+            image.show()
+            another_label = input("Do you want to see another label?").lower()
+            print(another_label)
+            if another_label != "y" and another_label != "yes":
+                print("line 157")
+                multiple_labels = False
